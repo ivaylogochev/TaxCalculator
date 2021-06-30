@@ -23,13 +23,15 @@
         /// </summary>
         public void Run()
         {
+            writer.WriteLine(GetPromptMessage());
             string input = reader.ReadLine();
 
-            while (input.ToUpper() != ProgramEndMessage.END)
+            while (input.ToUpper() != ProgramMessages.END)
             {
                 try
                 {
                     //Suggested input format: {name} {salary}
+
                     string[] argumets = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     string employeeName = argumets[0];
                     decimal grossSalary = decimal.Parse(argumets[1]);
@@ -38,7 +40,7 @@
 
                     IEmployee employee = new Employee(employeeName, salary);
                     decimal netSalary = employee.Salary.NetAmount;
-                    writer.WriteLine(netSalary.ToString("F0"));
+                    writer.WriteLine(ProgramMessages.Output + netSalary.ToString("F0"));
                 }
                 catch (ArgumentNullException ane)
                 {
@@ -57,8 +59,14 @@
                     writer.WriteLine(e.Message);
                 }
 
+                writer.WriteLine(GetPromptMessage());
                 input = reader.ReadLine();
             }
+        }
+
+        private string GetPromptMessage()
+        {
+            return ProgramMessages.Prompt;
         }
 
         /// <summary>
