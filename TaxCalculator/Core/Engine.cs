@@ -68,15 +68,5 @@
         {
             return ProgramMessages.Prompt;
         }
-
-        /// <summary>
-        /// Creating Salary instance.
-        /// </summary>
-        /// <param name="grossSalary">grossSalary component from the input</param>
-        /// <returns>ISalary</returns>
-        private static ISalary GetSalaryInstance(decimal grossSalary)
-        {
-            return new Salary(grossSalary);
-        }
     }
 }

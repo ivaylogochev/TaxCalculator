@@ -11,24 +11,21 @@
 
         public Salary(decimal grossSalary)
         {
-            this.IncomeTax = CalculateTaxAmount(grossSalary,
-                GrossSalaryConstants.IncomeTaxRate);
-            this.SocialCotribution = CalculateTaxAmount(grossSalary,
-                GrossSalaryConstants.SocialContributionRate);
-            this.NetAmount = CalculateNetSalary(grossSalary,
-                this.IncomeTax, this.SocialCotribution);
             this.GrossAmount = grossSalary;
         }
 
-        public decimal IncomeTax { get; private set; }
+        public decimal IncomeTax => CalculateTaxAmount(this.GrossAmount,
+                GrossSalaryConstants.IncomeTaxRate);
 
-        public decimal SocialCotribution { get; private set; }
+        public decimal SocialCotribution => CalculateTaxAmount(this.GrossAmount,
+                GrossSalaryConstants.SocialContributionRate);
 
-        public decimal NetAmount { get; private set; }
+        public decimal NetAmount => CalculateNetSalary(this.GrossAmount,
+                this.IncomeTax, this.SocialCotribution);
 
         public decimal GrossAmount
         {
-            get { return this.grossAmount; }
+            get => this.grossAmount; 
             private set
             {
                 if (!GetIsValidGrossSalary(value))

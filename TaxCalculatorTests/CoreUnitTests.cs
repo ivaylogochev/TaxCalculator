@@ -10,8 +10,8 @@ namespace TaxCalculatorTests
 
     public class Tests
     {
-        private ISalary salary;
-        private IEmployee employee;
+        private Salary salary;
+        private Employee employee;
         private IWriter writer = new ConsoleWriter();
         private IReader reader = new ConsoleReader();
 
@@ -47,10 +47,27 @@ namespace TaxCalculatorTests
             });
         }
 
+        [TestCase(3400, 240)]
+        [TestCase(800, 0)]
+        public void CorrectlyCalculateIncomeTax(decimal grossSalary, decimal expectedIncomeTax)
+        {
+            var salary = new Salary(grossSalary);
+            var incomeTax = salary.IncomeTax;
+            Assert.AreEqual(expectedIncomeTax, incomeTax);
+        }
+
+        [TestCase(3400, 300)]
+        [TestCase(1500, 75)]
+        [TestCase(800, 0)]
+        public void CorrectlyCalculateSocialCotribution(decimal grossSalary, decimal expectedSocialContribution)
+        {
+            var salary = new Salary(grossSalary);
+            var socialCotribution = salary.SocialCotribution;
+            Assert.AreEqual(expectedSocialContribution, socialCotribution);
+        }
         #endregion
 
         #region EmployeeTests
-
 
         [Test]
         public void CanCreateEmployee()
